@@ -1,4 +1,5 @@
 import express from "express";
+import dns from "node:dns";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
@@ -40,6 +41,16 @@ async function startServer() {
   }
 
   try {
+    if (process.env.MONGO_DNS_SERVERS) {
+      const dnsServers = process.env.MONGO_DNS_SERVERS.split(",").map((server) => server.trim());
+
+      if (dnsServers.some((server) => !server)) {
+        throw new Error("MONGO_DNS_SERVERS must contain comma-separated DNS server addresses.");
+      }
+
+      dns.setServers(dnsServers);
+    }
+
     await mongoose.connect(mongoUri, {
       dbName: "inventory",
     });
