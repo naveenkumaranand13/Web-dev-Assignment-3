@@ -2,7 +2,7 @@
 
 1. Install dependencies with `npm install`.
 2. Copy `.env.example` to `.env`.
-3. Replace `<db_password>` in `.env` with your MongoDB Atlas database user's rotated password.
+3. Replace `<db_username>` and `<db_password>` in `.env` with your MongoDB Atlas database user's credentials.
 4. Start the API with `npm run dev`.
 
 If your network's DNS cannot resolve the MongoDB SRV record, add
